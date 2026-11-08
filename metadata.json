@@ -12,7 +12,8 @@
         "Id": "local.systrio",
         "License": "GPL-3.0-or-later",
         "Name": "Nebula Monitor",
-        "Version": "1.1.0"
+        "Version": "1.1.0",
+        "Website": "https://abdh01.com"
     },
     "X-Plasma-API-Minimum-Version": "6.0"
 }
