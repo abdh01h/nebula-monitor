@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+  <kcfgfile name=""/>
+
+  <group name="General">
+    <entry name="fontScale" type="Double">
+      <default>1.0</default>
+    </entry>
+    <entry name="customWidth" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="width" type="Int">
+      <default>300</default>
+    </entry>
+    <entry name="horizontal" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="padding" type="Int">
+      <default>14</default>
+    </entry>
+    <entry name="backgroundOpacity" type="Int">
+      <default>0</default>
+    </entry>
+    <entry name="showBorder" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="followSystemTheme" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="timeFormat" type="String">
+      <default>h:mm AP</default>
+    </entry>
+    <entry name="dateFormat" type="String">
+      <default>dd/MM/yyyy</default>
+    </entry>
+    <entry name="tempFontScale" type="Double">
+      <default>0.7</default>
+    </entry>
+
+    <entry name="showClock" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="showSystem" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="showCpu" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="showGpu" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="showRam" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="showSwap" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="showStorage" type="Bool">
+      <default>true</default>
+    </entry>
+
+    <entry name="infoOs" type="Bool"><default>true</default></entry>
+    <entry name="infoHost" type="Bool"><default>true</default></entry>
+    <entry name="infoKernel" type="Bool"><default>true</default></entry>
+    <entry name="infoUptime" type="Bool"><default>true</default></entry>
+    <entry name="infoPackages" type="Bool"><default>true</default></entry>
+    <entry name="infoDesktop" type="Bool"><default>true</default></entry>
+    <entry name="infoLink" type="Bool"><default>true</default></entry>
+    <entry name="infoIp" type="Bool"><default>true</default></entry>
+    <entry name="infoVpn" type="Bool"><default>true</default></entry>
+    <entry name="infoArch" type="Bool"><default>false</default></entry>
+    <entry name="infoModel" type="Bool"><default>false</default></entry>
+    <entry name="infoSession" type="Bool"><default>false</default></entry>
+    <entry name="infoSnap" type="Bool"><default>true</default></entry>
+    <entry name="infoFlatpak" type="Bool"><default>true</default></entry>
+    <entry name="infoUpdates" type="Bool"><default>false</default></entry>
+  </group>
+</kcfg>

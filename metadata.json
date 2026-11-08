@@ -1,0 +1,18 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "abdh"
+            }
+        ],
+        "Category": "System Information",
+        "Description": "Clock, system information, CPU/GPU/RAM, swap and storage usage in one borderless dashboard",
+        "Icon": "utilities-system-monitor",
+        "Id": "local.systrio",
+        "License": "GPL-3.0-or-later",
+        "Name": "Nebula Monitor",
+        "Version": "1.1.0"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0"
+}
