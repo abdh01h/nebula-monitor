@@ -41,6 +41,21 @@ Settings:
   whether to follow the system colour scheme, and which cards and system
   information rows are shown.
 
+## Distribution support
+
+The collector scripts pick the native package manager automatically:
+
+| Family | Package count | Pending updates | Storage health |
+| --- | --- | --- | --- |
+| Debian / Ubuntu | `dpkg-query` | `apt-get -s upgrade` | UDisks2 |
+| Arch / CachyOS | `pacman -Q` | `checkupdates` (pacman-contrib) or `pacman -Qu` | UDisks2 |
+| Fedora | `rpm -qa` | `dnf check-update` | UDisks2 |
+| openSUSE | `rpm -qa` | `zypper --xmlout list-updates` | UDisks2 |
+
+Everything else (hwmon temperatures, `nmcli`, `ip`, `df`, `lsblk`, UDisks2
+SMART) is standard on all four. Missing tools simply hide the corresponding
+row; nothing is Debian-specific.
+
 ## Requirements
 
 - KDE Plasma 6 (developed on Plasma 6.6).

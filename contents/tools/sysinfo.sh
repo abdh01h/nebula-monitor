@@ -20,7 +20,7 @@ else
     emit os "$(uname -s)"
 fi
 
-emit host "$(hostname 2>/dev/null)"
+emit host "$(hostname 2>/dev/null || uname -n 2>/dev/null)"
 
 model=$(cat /sys/devices/virtual/dmi/id/product_name 2>/dev/null)
 if [[ -z "$model" ]]; then
@@ -36,12 +36,14 @@ cores=$(getconf _NPROCESSORS_ONLN 2>/dev/null || nproc 2>/dev/null)
 [[ -n "${cores:-}" ]] && emit cores "$cores"
 
 installed_packages() {
-    if command -v dpkg-query >/dev/null 2>&1; then
+    # Check the native database, not just the command: Arch-based systems may
+    # have dpkg installed as a dependency while /var/lib/dpkg is absent.
+    if command -v pacman >/dev/null 2>&1 && [[ -d /var/lib/pacman ]]; then
+        pacman -Q 2>/dev/null | wc -l
+    elif command -v dpkg-query >/dev/null 2>&1 && [[ -r /var/lib/dpkg/status ]]; then
         grep -c '^Package:' /var/lib/dpkg/status 2>/dev/null
     elif command -v rpm >/dev/null 2>&1; then
         rpm -qa 2>/dev/null | wc -l
-    elif command -v pacman >/dev/null 2>&1; then
-        pacman -Q 2>/dev/null | wc -l
     elif command -v apk >/dev/null 2>&1; then
         apk info 2>/dev/null | wc -l
     fi
@@ -73,19 +75,26 @@ fi
 
 # Pending updates are expensive to query, so cache the result for 30 minutes.
 pending_updates() {
-    if command -v apt-get >/dev/null 2>&1; then
-        apt-get -s -o Debug::NoLocking=1 upgrade 2>/dev/null |
-            awk '/^[0-9]+ upgraded/{print $1; exit}'
-    elif command -v dnf >/dev/null 2>&1; then
-        dnf -q check-update 2>/dev/null | grep -c '^[[:alnum:]]'
-    elif command -v zypper >/dev/null 2>&1; then
-        zypper -q list-updates 2>/dev/null | tail -n +3 | wc -l
-    elif command -v pacman >/dev/null 2>&1; then
+    if command -v pacman >/dev/null 2>&1 && [[ -d /var/lib/pacman ]]; then
         if command -v checkupdates >/dev/null 2>&1; then
             checkupdates 2>/dev/null | wc -l
         else
             pacman -Qu 2>/dev/null | wc -l
         fi
+    elif command -v apt-get >/dev/null 2>&1; then
+        apt-get -s -o Debug::NoLocking=1 upgrade 2>/dev/null |
+            awk '/^[0-9]+ upgraded/{print $1; exit}'
+    elif command -v dnf >/dev/null 2>&1; then
+        # Count package lines only. "Obsoleting Packages" and metadata lines
+        # start with a word followed by a non-version token; real entries have
+        # a version (starting with a digit) after the package name.
+        dnf -q check-update 2>/dev/null |
+            awk '/^[[:alnum:]][^[:space:]]*[[:space:]]+[0-9]/ {n++} END {print n+0}'
+    elif command -v zypper >/dev/null 2>&1; then
+        # XML output is stable across openSUSE versions; the plain table has a
+        # header/separator whose line count varies with locale and version.
+        zypper --xmlout --non-interactive list-updates 2>/dev/null |
+            grep -o '<update ' | wc -l
     fi
 }
 
