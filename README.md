@@ -159,7 +159,6 @@ change `KPlugin.Id` in `metadata.json`, the directory name, and `PACKAGE_ID` in
 
 ## Links
 
-- Project home: <https://abdh01.com>
 - Source: <https://github.com/abdh01h/nebula-monitor>
 
 ## License
